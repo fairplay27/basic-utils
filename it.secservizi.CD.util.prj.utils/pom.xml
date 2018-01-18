@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>it.secservizi.CD.util.prj</groupId>
+  <groupId>it.secservizi.CD</groupId>
   <artifactId>it.secservizi.CD.util.prj.utils</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -85,7 +85,9 @@
 				</configuration>
 			</plugin>
 
-			<!--  OPZIONALE: per produrre anche il jar dei sorgenti -->
+			<!-- OPZIONALE: per produrre anche il jar dei sorgenti 
+				NOTA: source: jar di default associato a phase package 
+				-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -142,10 +144,33 @@
 				</configuration>
 			</plugin>
 
-		<!-- END: avere ler librerie referenziate dal jar su specifica destinazione 
-				 Esempio: in C:\GITHUB\basic-utils\it.secservizi.CD.util.prj.utils\target\it.secservizi.CD.util.prj.utils-0.0.1-SNAPSHOT.lib
-				-->
+			<!-- END: avere ler librerie referenziate dal jar su specifica destinazione 
+			-->
 
+
+			<!-- START: opzionale per pubblicare il jar sul local repository di Maven -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.2	</version>
+				<configuration>
+		
+					<file>${basedir}/target/${project.build.finalName}.jar</file>
+					<pomFile>${basedir}/pom.xml</pomFile>
+					<generatePom>true</generatePom>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- END: opzionale per pubblicare il jar sul local repository di Maven -->
+		
+		
 		</plugins>
 	</build>
   
